@@ -1,27 +1,43 @@
-import React from "react";
-import { Image, SafeAreaView, StyleSheet } from "react-native";
-import UploadWindow from "../components/UploadButton";
-import { ImageProp } from "../types/data";
+import React, { useRef } from "react";
+import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import rescaleImage from "../logic/rescaleImage";
+import { ImageObj } from "../types/data";
 
-const EditScreen: React.FC<ImageProp> = ({ image }) => {
+const EditScreen = (image: ImageObj) => {
   console.log(image);
+
   return (
-    <SafeAreaView style={styles.uploadContainer}>
-      {image && (
-        <Image
-          source={{ uri: image.uri }}
-          style={{ width: image.width / 4, height: image.height / 4 }}
-        />
-      )}
+    <SafeAreaView style={styles.editContainer}>
+      <View style={styles.publishNav}>
+        <Text>Confirm</Text>
+      </View>
+      <View style={styles.imageContainer}>
+        {image && (
+          <Image
+            source={image.uri}
+            style={{ height: image.height | 0, width: image.height | 0 }}
+          />
+        )}
+      </View>
+      <View style={styles.editOptions}></View>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  uploadContainer: {
+  editContainer: {
     width: "100%",
     height: "90%",
     backgroundColor: "gray",
+    flexDirection: "column",
+  },
+  publishNav: { flex: 1, backgroundColor: "pink" },
+  imageContainer: {
+    flex: 5,
+  },
+  editOptions: {
+    flex: 1,
+    backgroundColor: "pink",
   },
 });
 

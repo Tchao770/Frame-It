@@ -1,18 +1,12 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import {
-  Image,
-  Platform,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Image, Platform, StyleSheet, TouchableOpacity } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import { ImageProp } from "../types/data";
+import { ImageObj, ImageProp } from "../types/data";
 
 const UploadButton: React.FC<ImageProp> = ({ setImage }) => {
   useEffect(() => {
-    (async () => {
+    async () => {
       if (Platform.OS !== "web") {
         const { status } =
           await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -20,7 +14,7 @@ const UploadButton: React.FC<ImageProp> = ({ setImage }) => {
           alert("Sorry we need camera roll permissions!");
         }
       }
-    })();
+    };
   }, []);
 
   const pickImage = async () => {
@@ -29,32 +23,37 @@ const UploadButton: React.FC<ImageProp> = ({ setImage }) => {
       quality: 1,
     });
     console.log(result);
+
     if (!result.cancelled) {
-      setImage({ uri: result.uri, height: result.height, width: result.width });
+      let resultObj: ImageObj = {
+        uri: result.uri,
+        height: result.height,
+        width: result.width,
+      };
+      /*
+      change the height and width before setting the image
+      rescaleImage(image);
+      */
+      setImage(resultObj);
     }
   };
 
   return (
-    <View style={styles.uploadContainer}>
-      <TouchableOpacity onPress={pickImage} style={styles.uploadButton}>
-        <Image
-          source={require("../assets/upload.svg")}
-          style={{ height: 20, width: 20 }}
-        />
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity onPress={pickImage} style={styles.uploadContainer}>
+      <Image
+        source={require("../assets/upload.svg")}
+        style={{ height: 20, width: 20 }}
+      />
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   uploadContainer: {
-    height: "100%",
-    width: "20%",
+    height: 70,
+    width: 70,
+    borderRadius: 50,
     backgroundColor: "dodgerblue",
-  },
-  uploadButton: {
-    height: 20,
-    width: 20,
   },
 });
 

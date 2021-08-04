@@ -1,12 +1,9 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import UploadButton from "../components/UploadButton";
+import { ImageProp } from "../types/data";
 
-interface Props {
-  setImage: Function;
-}
-
-const BottomNav: React.FC<Props> = ({ setImage }) => {
+const BottomNav: React.FC<ImageProp> = ({ setImage }) => {
   return (
     <View style={styles.navContainer}>
       <UploadButton setImage={setImage} />

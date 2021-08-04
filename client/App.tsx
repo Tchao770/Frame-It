@@ -3,15 +3,14 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import BottomNav from "./src/navigation/BottomNav";
 import EditScreen from "./src/screens/EditScreen";
-
-interface ImageData {
-  uri: string;
-  height: number;
-  width: number;
-}
+import { ImageObj } from "./src/types/data";
 
 export default function App() {
-  const [image, setImage] = useState<ImageData>();
+  const [image, setImage] = useState<ImageObj>({
+    uri: "",
+    width: 0,
+    height: 0,
+  });
   return (
     <View style={styles.container}>
       <EditScreen image={image} />
