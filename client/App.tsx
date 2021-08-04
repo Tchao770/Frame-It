@@ -1,14 +1,21 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import BottomNav from "./navigation/BottomNav";
-import UploadScreen from "./screens/UploadScreen";
+import BottomNav from "./src/navigation/BottomNav";
+import EditScreen from "./src/screens/EditScreen";
+
+interface ImageData {
+  uri: string;
+  height: number;
+  width: number;
+}
 
 export default function App() {
+  const [image, setImage] = useState<ImageData>();
   return (
     <View style={styles.container}>
-      <UploadScreen />
-      <BottomNav />
+      <EditScreen image={image} />
+      <BottomNav setImage={setImage} />
       <StatusBar style="auto" />
     </View>
   );

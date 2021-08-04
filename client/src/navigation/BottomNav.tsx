@@ -1,9 +1,18 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
+import UploadButton from "../components/UploadButton";
 
-export default function BottomNav() {
-  return <View style={styles.navContainer}></View>;
+interface Props {
+  setImage: Function;
 }
+
+const BottomNav: React.FC<Props> = ({ setImage }) => {
+  return (
+    <View style={styles.navContainer}>
+      <UploadButton setImage={setImage} />
+    </View>
+  );
+};
 const styles = StyleSheet.create({
   navContainer: {
     position: "absolute",
@@ -15,3 +24,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
+
+export default BottomNav;
