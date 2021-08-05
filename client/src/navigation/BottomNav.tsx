@@ -3,10 +3,10 @@ import { StyleSheet, View } from "react-native";
 import UploadButton from "../components/UploadButton";
 import { ImageProp } from "../types/data";
 
-const BottomNav: React.FC<ImageProp> = ({ setImage }) => {
+const BottomNav = ({ image, setImage }: ImageProp) => {
   return (
     <View style={styles.navContainer}>
-      <UploadButton setImage={setImage} />
+      <UploadButton image={image} setImage={setImage} />
     </View>
   );
 };

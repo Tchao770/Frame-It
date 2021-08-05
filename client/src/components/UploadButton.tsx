@@ -4,7 +4,7 @@ import { Image, Platform, StyleSheet, TouchableOpacity } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { ImageObj, ImageProp } from "../types/data";
 
-const UploadButton: React.FC<ImageProp> = ({ setImage }) => {
+const UploadButton = ({ setImage }: ImageProp) => {
   useEffect(() => {
     async () => {
       if (Platform.OS !== "web") {
@@ -22,7 +22,6 @@ const UploadButton: React.FC<ImageProp> = ({ setImage }) => {
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       quality: 1,
     });
-    console.log(result);
 
     if (!result.cancelled) {
       let resultObj: ImageObj = {
@@ -30,10 +29,6 @@ const UploadButton: React.FC<ImageProp> = ({ setImage }) => {
         height: result.height,
         width: result.width,
       };
-      /*
-      change the height and width before setting the image
-      rescaleImage(image);
-      */
       setImage(resultObj);
     }
   };

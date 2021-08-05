@@ -7,8 +7,10 @@ interface ImageObj {
 }
 
 interface ImageProp {
-  image?: ImageObj | undefined;
-  setImage?: Dispatch<SetStateAction<ImageProp>>;
+  image: ImageObj;
+  setImage: Dispatch<SetStateAction<ImageObj>>;
 }
 
-export { ImageObj, ImageProp };
+type Dispatcher<S> = Dispatch<SetStateAction<S>>;
+
+export { ImageObj, ImageProp, Dispatcher };

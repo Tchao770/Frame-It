@@ -6,15 +6,15 @@ import EditScreen from "./src/screens/EditScreen";
 import { ImageObj } from "./src/types/data";
 
 export default function App() {
-  const [image, setImage] = useState<ImageObj>({
+  const [image, setImage] = useState({
     uri: "",
     width: 0,
     height: 0,
   });
   return (
     <View style={styles.container}>
-      <EditScreen image={image} />
-      <BottomNav setImage={setImage} />
+      <EditScreen image={image} setImage={setImage} />
+      <BottomNav image={image} setImage={setImage} />
       <StatusBar style="auto" />
     </View>
   );
