@@ -10,3 +10,4 @@ Technologies used:
 - Express
 - NodeJS
 - Typescript
+- Jest

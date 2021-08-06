@@ -1,5 +1,6 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import {
+  Button,
   Dimensions,
   Image,
   SafeAreaView,
@@ -8,11 +9,38 @@ import {
   View,
 } from "react-native";
 import { ImageProp } from "../types/data";
+import { manipulateAsync } from "expo-image-manipulator";
 
 const MAX_WIDTH = Dimensions.get("window").width;
 const MAX_HEIGHT = Dimensions.get("window").height;
 
-const EditScreen = ({ image }: ImageProp) => {
+const EditScreen = ({ image, setImage }: ImageProp) => {
+  const rotateImage = async () => {
+    const adjustedImage = await manipulateAsync(image.uri, [{ rotate: 90 }]);
+    setImage(adjustedImage);
+  };
+
+  const resizeImage = async () => {
+    const adjustedImage = await manipulateAsync(image.uri, [
+      { resize: { width: image.width, height: image.height } },
+    ]);
+    setImage(adjustedImage);
+  };
+
+  const cropImage = async () => {
+    const adjustedImage = await manipulateAsync(image.uri, [
+      {
+        crop: {
+          originX: 0,
+          originY: 0,
+          width: image.width - 100,
+          height: image.height - 100,
+        },
+      },
+    ]);
+    setImage(adjustedImage);
+  };
+
   return (
     <SafeAreaView style={styles.editContainer}>
       <View style={styles.publishNav}>
@@ -31,7 +59,11 @@ const EditScreen = ({ image }: ImageProp) => {
           />
         )}
       </View>
-      <View style={styles.editOptions}></View>
+      <View style={styles.editOptions}>
+        <Button title="Rotate" onPress={rotateImage} />
+        <Button title="Resize" onPress={resizeImage} />
+        <Button title="Crop" onPress={cropImage} />
+      </View>
     </SafeAreaView>
   );
 };
@@ -50,6 +82,8 @@ const styles = StyleSheet.create({
   editOptions: {
     flex: 1,
     backgroundColor: "pink",
+    flexDirection: "row",
+    justifyContent: "space-around",
   },
 });
 

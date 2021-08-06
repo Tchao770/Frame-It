@@ -1,6 +1,12 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { Image, Platform, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  Image,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+} from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { ImageObj, ImageProp } from "../types/data";
 
@@ -35,10 +41,7 @@ const UploadButton = ({ setImage }: ImageProp) => {
 
   return (
     <TouchableOpacity onPress={pickImage} style={styles.uploadContainer}>
-      <Image
-        source={require("../assets/upload.svg")}
-        style={{ height: 20, width: 20 }}
-      />
+      <Text style={styles.uploadText}>Upload</Text>
     </TouchableOpacity>
   );
 };
@@ -49,6 +52,11 @@ const styles = StyleSheet.create({
     width: 70,
     borderRadius: 50,
     backgroundColor: "dodgerblue",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  uploadText: {
+    paddingBottom: 4,
   },
 });
 

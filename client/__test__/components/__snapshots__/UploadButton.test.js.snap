@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UploadButton Render has 1 child 1`] = `
+<View
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "backgroundColor": "dodgerblue",
+      "borderRadius": 50,
+      "height": 70,
+      "opacity": 1,
+      "width": 70,
+    }
+  }
+>
+  <Image
+    source={1}
+    style={
+      Object {
+        "height": 20,
+        "width": 20,
+      }
+    }
+  />
+</View>
+`;
