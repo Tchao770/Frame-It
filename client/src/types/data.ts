@@ -4,6 +4,7 @@ interface ImageObj {
   uri: string;
   height: number;
   width: number;
+  base64?: string | undefined;
 }
 
 interface ImageProp {
@@ -11,6 +12,8 @@ interface ImageProp {
   setImage: Dispatch<SetStateAction<ImageObj>>;
 }
 
+type EditOptions = "rotate" | "crop" | "resize";
+
 type Dispatcher<S> = Dispatch<SetStateAction<S>>;
 
-export { ImageObj, ImageProp, Dispatcher };
+export { ImageObj, ImageProp, Dispatcher, EditOptions };

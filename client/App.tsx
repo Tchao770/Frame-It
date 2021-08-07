@@ -10,6 +10,7 @@ export default function App() {
     uri: "",
     width: 0,
     height: 0,
+    base64: "",
   });
   return (
     <View style={styles.container}>

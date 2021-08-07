@@ -28,7 +28,7 @@ const UploadButton = ({ setImage }: ImageProp) => {
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       quality: 1,
     });
-
+    //console.log(result);
     if (!result.cancelled) {
       let resultObj: ImageObj = {
         uri: result.uri,

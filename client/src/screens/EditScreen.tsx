@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import {
+  Alert,
   Button,
   Dimensions,
   Image,
@@ -16,7 +17,10 @@ const MAX_HEIGHT = Dimensions.get("window").height;
 
 const EditScreen = ({ image, setImage }: ImageProp) => {
   const rotateImage = async () => {
-    const adjustedImage = await manipulateAsync(image.uri, [{ rotate: 90 }]);
+    const adjustedImage = await manipulateAsync(image.uri, [{ rotate: 90 }], {
+      base64: true,
+    });
+    console.log(adjustedImage.base64);
     setImage(adjustedImage);
   };
 
@@ -41,10 +45,35 @@ const EditScreen = ({ image, setImage }: ImageProp) => {
     setImage(adjustedImage);
   };
 
+  const handleUpload = async () => {
+    fetch("http://172.19.112.1:8080/upload", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        uri: image.base64,
+      }),
+    })
+      .then((response) => {
+        console.log("response");
+        return response.json();
+      })
+      .then((responseJson) => {
+        Alert.alert("dam son");
+        console.log(responseJson);
+      })
+      .catch((error) => {
+        Alert.alert("upload failed");
+        console.error(error);
+      });
+  };
+
   return (
     <SafeAreaView style={styles.editContainer}>
       <View style={styles.publishNav}>
-        <Text>Confirm</Text>
+        <Button title="Save" onPress={handleUpload} />
       </View>
       <View style={styles.imageContainer}>
         {image && (
