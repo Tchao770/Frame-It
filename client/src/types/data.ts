@@ -14,6 +14,22 @@ interface ImageProp {
 
 type EditOptions = "rotate" | "crop" | "resize";
 
+interface OptionParams {
+  [index: number]: {
+    rotate?: number;
+    resize?: {
+      width: number;
+      height: number;
+    };
+    crop?: {
+      originX: number;
+      originY: number;
+      width: number;
+      height: number;
+    };
+  };
+}
+
 type Dispatcher<S> = Dispatch<SetStateAction<S>>;
 
-export { ImageObj, ImageProp, Dispatcher, EditOptions };
+export { ImageObj, ImageProp, Dispatcher, EditOptions, OptionParams };

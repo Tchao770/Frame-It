@@ -1,3 +1,4 @@
+import { manipulateAsync } from "expo-image-manipulator";
 import React, { useRef, useEffect } from "react";
 import {
   Alert,
@@ -10,39 +11,15 @@ import {
   View,
 } from "react-native";
 import { ImageProp } from "../types/data";
-import { manipulateAsync } from "expo-image-manipulator";
+import { changeImage } from "../logic/changeImage";
 
 const MAX_WIDTH = Dimensions.get("window").width;
 const MAX_HEIGHT = Dimensions.get("window").height;
 
 const EditScreen = ({ image, setImage }: ImageProp) => {
-  const rotateImage = async () => {
-    const adjustedImage = await manipulateAsync(image.uri, [{ rotate: 90 }], {
-      base64: true,
-    });
-    console.log(adjustedImage.base64);
-    setImage(adjustedImage);
-  };
-
-  const resizeImage = async () => {
-    const adjustedImage = await manipulateAsync(image.uri, [
-      { resize: { width: image.width, height: image.height } },
-    ]);
-    setImage(adjustedImage);
-  };
-
-  const cropImage = async () => {
-    const adjustedImage = await manipulateAsync(image.uri, [
-      {
-        crop: {
-          originX: 0,
-          originY: 0,
-          width: image.width - 100,
-          height: image.height - 100,
-        },
-      },
-    ]);
-    setImage(adjustedImage);
+  // Refactor to not have to pass setImage to the function
+  const handleImageChange = (type: string) => {
+    changeImage(image, setImage, type);
   };
 
   const handleUpload = async () => {
@@ -57,11 +34,9 @@ const EditScreen = ({ image, setImage }: ImageProp) => {
       }),
     })
       .then((response) => {
-        console.log("response");
         return response.json();
       })
       .then((responseJson) => {
-        Alert.alert("dam son");
         console.log(responseJson);
       })
       .catch((error) => {
@@ -89,9 +64,9 @@ const EditScreen = ({ image, setImage }: ImageProp) => {
         )}
       </View>
       <View style={styles.editOptions}>
-        <Button title="Rotate" onPress={rotateImage} />
-        <Button title="Resize" onPress={resizeImage} />
-        <Button title="Crop" onPress={cropImage} />
+        <Button title="Rotate" onPress={() => handleImageChange("rotate")} />
+        <Button title="Resize" onPress={() => handleImageChange("resize")} />
+        <Button title="Crop" onPress={() => handleImageChange("crop")} />
       </View>
     </SafeAreaView>
   );
