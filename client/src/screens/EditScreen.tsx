@@ -10,16 +10,21 @@ import {
   Text,
   View,
 } from "react-native";
-import { ImageProp } from "../types/data";
+import { ImageObj, ImageProp } from "../types/data";
 import { changeImage } from "../logic/changeImage";
 
 const MAX_WIDTH = Dimensions.get("window").width;
 const MAX_HEIGHT = Dimensions.get("window").height;
 
 const EditScreen = ({ image, setImage }: ImageProp) => {
-  // Refactor to not have to pass setImage to the function
-  const handleImageChange = (type: string) => {
-    changeImage(image, setImage, type);
+  const handlePromise = (items: any) => {
+    return Promise.all(items);
+  };
+
+  const handleImageChange = async (type: string) => {
+    changeImage(image, type)?.then((resolve) => {
+      setImage(resolve);
+    });
   };
 
   const handleUpload = async () => {
@@ -30,7 +35,7 @@ const EditScreen = ({ image, setImage }: ImageProp) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        uri: image.base64,
+        uri: image?.base64,
       }),
     })
       .then((response) => {

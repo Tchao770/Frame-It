@@ -19,23 +19,21 @@ const optionParams: OptionParams = [
   },
 ];
 
-const rotateImage = async (image, setImage) => {
+const rotateImage = async (image: ImageObj) => {
   const adjustedImage = await manipulateAsync(image.uri, [{ rotate: 90 }], {
     base64: true,
   });
-  console.log("rotate");
-  setImage(adjustedImage);
+  return adjustedImage;
 };
 
-const resizeImage = async (image, setImage) => {
+const resizeImage = async (image: ImageObj) => {
   const adjustedImage = await manipulateAsync(image.uri, [
     { resize: { width: image.width, height: image.height } },
   ]);
-  console.log("resize");
-  setImage(adjustedImage);
+  return adjustedImage;
 };
 
-const cropImage = async (image, setImage) => {
+const cropImage = async (image: ImageObj) => {
   const adjustedImage = await manipulateAsync(image.uri, [
     {
       crop: {
@@ -46,20 +44,16 @@ const cropImage = async (image, setImage) => {
       },
     },
   ]);
-  console.log("crop");
-  setImage(adjustedImage);
+  return adjustedImage;
 };
 
-export const changeImage = (image: ImageObj, setImage: any, type: string) => {
+export const changeImage = (image: ImageObj, type: string) => {
   switch (type) {
     case "rotate":
-      rotateImage(image, setImage);
-      break;
+      return rotateImage(image);
     case "crop":
-      cropImage(image, setImage);
-      break;
+      return cropImage(image);
     case "resize":
-      resizeImage(image, setImage);
-      break;
+      return resizeImage(image);
   }
 };
