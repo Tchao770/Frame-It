@@ -12,22 +12,26 @@ import {
 } from "react-native";
 import { ImageObj, ImageProp } from "../types/data";
 import { changeImage } from "../logic/changeImage";
+import { ImageCropper } from "../components/ImageCrop";
 
 const MAX_WIDTH = Dimensions.get("window").width;
 const MAX_HEIGHT = Dimensions.get("window").height;
 
 const EditScreen = ({ image, setImage }: ImageProp) => {
-  const handlePromise = (items: any) => {
-    return Promise.all(items);
-  };
-
   const handleImageChange = async (type: string) => {
-    changeImage(image, type)?.then((resolve) => {
-      setImage(resolve);
-    });
+    changeImage(image, type)
+      ?.then((resolve) => {
+        setImage(resolve);
+      })
+      .catch((error) => console.log(error));
   };
 
   const handleUpload = async () => {
+    /*
+        Fetch URL will depend on how you are testing the device.
+        If you are using an emulator, http://localhost:8080/upload will do
+        Otherwise, if you are using a physical device, you need to use your computer's IPv4 address
+    */
     fetch("http://172.19.112.1:8080/upload", {
       method: "POST",
       headers: {
@@ -41,9 +45,6 @@ const EditScreen = ({ image, setImage }: ImageProp) => {
       .then((response) => {
         return response.json();
       })
-      .then((responseJson) => {
-        console.log(responseJson);
-      })
       .catch((error) => {
         Alert.alert("upload failed");
         console.error(error);
@@ -56,17 +57,7 @@ const EditScreen = ({ image, setImage }: ImageProp) => {
         <Button title="Save" onPress={handleUpload} />
       </View>
       <View style={styles.imageContainer}>
-        {image && (
-          <Image
-            source={image.uri ? { uri: image.uri } : null}
-            style={{
-              resizeMode: "contain",
-              maxWidth: MAX_WIDTH,
-              maxHeight: MAX_HEIGHT,
-              flex: 1,
-            }}
-          />
-        )}
+        <ImageCropper image={image} />
       </View>
       <View style={styles.editOptions}>
         <Button title="Rotate" onPress={() => handleImageChange("rotate")} />
@@ -93,6 +84,9 @@ const styles = StyleSheet.create({
     backgroundColor: "pink",
     flexDirection: "row",
     justifyContent: "space-around",
+  },
+  buttonEdit: {
+    justifyContent: "center",
   },
 });
 

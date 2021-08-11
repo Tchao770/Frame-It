@@ -26,6 +26,11 @@ const UploadButton = ({ setImage }: ImageProp) => {
   const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      /*
+      allowsEditing: true,
+        - iOS: Only Resizing, no cropping
+        - Android: Everything.
+      */
       quality: 1,
     });
     //console.log(result);
