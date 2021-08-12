@@ -2,11 +2,12 @@ import React, { useRef } from "react";
 import { Dimensions, Image } from "react-native";
 import { Animated, PanResponder, StyleSheet } from "react-native";
 import { View } from "react-native";
+import { ImageObj } from "../types/data";
 
 const MAX_WIDTH = Dimensions.get("window").width;
 const MAX_HEIGHT = Dimensions.get("window").height;
 
-export const ImageCropper = ({ image }) => {
+export const ImageCropper = (image: ImageObj) => {
   const pan = useRef(new Animated.ValueXY()).current;
 
   const panResponder = useRef(
@@ -18,13 +19,16 @@ export const ImageCropper = ({ image }) => {
           y: pan.y._value,
         });
       },
-      onPanResponderMove: Animated.event([
-        null,
-        {
-          dx: pan.x,
-          dy: pan.y,
-        },
-      ]),
+      onPanResponderMove: Animated.event(
+        [
+          null,
+          {
+            dx: pan.x,
+            dy: pan.y,
+          },
+        ],
+        { useNativeDriver: false }
+      ),
       onPanResponderRelease: () => {
         pan.flattenOffset();
       },

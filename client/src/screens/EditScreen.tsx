@@ -57,7 +57,17 @@ const EditScreen = ({ image, setImage }: ImageProp) => {
         <Button title="Save" onPress={handleUpload} />
       </View>
       <View style={styles.imageContainer}>
-        <ImageCropper image={image} />
+        {image && (
+          <Image
+            source={{ uri: image.uri }}
+            style={{
+              resizeMode: "contain",
+              maxWidth: MAX_WIDTH,
+              maxHeight: MAX_HEIGHT,
+              flex: 1,
+            }}
+          />
+        )}
       </View>
       <View style={styles.editOptions}>
         <Button title="Rotate" onPress={() => handleImageChange("rotate")} />

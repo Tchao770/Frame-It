@@ -19,6 +19,6 @@ app.post("/upload", (req, res) => {
   });
 });
 
-app.listen(PORT, IP_ADDRESS, () => {
+app.listen(PORT, () => {
   console.log(`Server listening on port:  ${PORT}`);
 });
