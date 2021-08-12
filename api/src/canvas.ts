@@ -18,7 +18,8 @@ const image = loadImage(`../image.png`)
 
 const frame = loadImage(`../gold-frame.png`)
   .then((response) => {
-    context.drawImage(response, 0, 0);
+    console.log(response);
+    context.drawImage(response, 0, 0, canvas.width, canvas.height);
 
     // Outputs the canvas object
     fs.writeFileSync("out.png", canvas.toBuffer());
