@@ -4,7 +4,12 @@ const fs = require("fs");
 const canvas = createCanvas(0, 0, "png");
 const context = canvas.getContext("2d");
 
-const frameImage = ({ image: imageName, frame: frameName }) => {
+interface FrameImageArg {
+  image: string;
+  frame: string;
+}
+
+const frameImage = ({ image: imageName, frame: frameName }: FrameImageArg) => {
   try {
     const picture = loadImage(
       __dirname + `/../images/uploads/${imageName}.png`

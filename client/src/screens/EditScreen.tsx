@@ -40,6 +40,7 @@ const EditScreen = ({ image, setImage }: ImageProp) => {
       },
       body: JSON.stringify({
         uri: image?.base64,
+        title: "nice!",
       }),
     })
       .then((response) => {
