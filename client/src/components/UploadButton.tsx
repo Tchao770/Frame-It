@@ -32,13 +32,15 @@ const UploadButton = ({ setImage }: ImageProp) => {
         - Android: Everything.
       */
       quality: 1,
+      base64: true,
     });
-    //console.log(result);
+    console.log(result);
     if (!result.cancelled) {
       let resultObj: ImageObj = {
         uri: result.uri,
         height: result.height,
         width: result.width,
+        base64: result.base64,
       };
       setImage(resultObj);
     }

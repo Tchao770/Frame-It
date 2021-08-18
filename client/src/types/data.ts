@@ -4,7 +4,7 @@ interface ImageObj {
   uri: string;
   height: number;
   width: number;
-  base64?: string | undefined;
+  base64?: string;
 }
 
 interface ImageProp {
