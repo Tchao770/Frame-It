@@ -9,21 +9,14 @@ import {
   View,
 } from "react-native";
 import { ImageProp } from "../types/data";
-import { changeImage } from "../logic/changeImage";
+import { handleImageChange } from "../logic/handleImageChange";
+import { EditButton } from "../components/EditButton";
 
 const MAX_WIDTH = Dimensions.get("window").width;
 const MAX_HEIGHT = Dimensions.get("window").height;
 
 const EditScreen = ({ navigation, route }: any) => {
   const { image } = route.params;
-  const handleImageChange = async (type: string) => {
-    changeImage(image, type)
-      ?.then((resolve) => {
-        // Find way to pass set function to edit screen.
-        setImage(resolve);
-      })
-      .catch((error) => console.log(error));
-  };
   const handleSave = () => {
     navigation.navigate("Home", {});
   };
@@ -47,9 +40,9 @@ const EditScreen = ({ navigation, route }: any) => {
         )}
       </View>
       <View style={styles.editOptions}>
-        <Button title="Rotate" onPress={() => handleImageChange("rotate")} />
-        <Button title="Resize" onPress={() => handleImageChange("resize")} />
-        <Button title="Crop" onPress={() => handleImageChange("crop")} />
+        <EditButton image={image} title={"Rotate"} />
+        <EditButton image={image} title={"Resize"} />
+        <EditButton image={image} title={"Crop"} />
       </View>
     </SafeAreaView>
   );
@@ -58,7 +51,7 @@ const EditScreen = ({ navigation, route }: any) => {
 const styles = StyleSheet.create({
   editContainer: {
     width: "100%",
-    height: "90%",
+    height: "100%",
     backgroundColor: "gray",
     flexDirection: "column",
   },
@@ -67,7 +60,7 @@ const styles = StyleSheet.create({
     flex: 5,
   },
   editOptions: {
-    height: 70,
+    height: 100,
     backgroundColor: "pink",
     flexDirection: "row",
     justifyContent: "space-around",

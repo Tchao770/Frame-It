@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Image, StyleSheet } from "react-native";
+import { Button, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { Text, View } from "react-native";
 import UploadButton from "../components/UploadButton";
 import { handleUpload } from "../logic/handleUpload";
@@ -16,21 +16,33 @@ export default function HomeScreen({ navigation }: any) {
 
   return (
     <View style={styles.screenContainer}>
-      <Text style={styles.title}>Frame It</Text>
+      <TouchableOpacity
+        onPress={() => handleUpload(image)}
+        style={styles.frameButton}
+      >
+        <Text style={styles.title}>Frame It</Text>
+      </TouchableOpacity>
       <Image
         source={image.uri ? { uri: image.uri } : { uri: "placeholder.png" }}
         style={styles.previewImg}
       />
-      <Button
-        title="Edit"
-        onPress={() =>
-          navigation.navigate("Edit", {
-            image: image,
-          })
-        }
-      />
-      <Button title="Frame It!" onPress={() => handleUpload(image)} />
-      <UploadButton image={image} setImage={setImage} navigation={navigation} />
+      <View style={styles.buttonOptions}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate("Edit", {
+              image: image,
+            })
+          }
+          style={styles.editContainer}
+        >
+          <Text style={styles.editText}>Edit</Text>
+        </TouchableOpacity>
+        <UploadButton
+          image={image}
+          setImage={setImage}
+          navigation={navigation}
+        />
+      </View>
     </View>
   );
 }
@@ -42,11 +54,34 @@ const styles = StyleSheet.create({
     backgroundColor: "lightgray",
     flex: 1,
   },
-  title: { fontSize: 35 },
+  title: {
+    fontSize: 35,
+    color: "white",
+  },
+  frameButton: {
+    backgroundColor: "dodgerblue",
+    padding: 10,
+  },
   previewImg: {
     height: 400,
     width: 400,
     resizeMode: "contain",
     backgroundColor: "white",
+  },
+  buttonOptions: {
+    flexDirection: "row",
+    width: "100%",
+    justifyContent: "space-around",
+  },
+  editContainer: {
+    height: 60,
+    width: 140,
+    backgroundColor: "dodgerblue",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  editText: {
+    color: "white",
+    paddingBottom: 4,
   },
 });

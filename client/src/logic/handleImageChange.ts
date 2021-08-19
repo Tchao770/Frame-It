@@ -47,7 +47,7 @@ const cropImage = async (image: ImageObj) => {
   return adjustedImage;
 };
 
-export const changeImage = (image: ImageObj, type: string) => {
+const changeImage = (image: ImageObj, type: string) => {
   switch (type) {
     case "rotate":
       return rotateImage(image);
@@ -56,4 +56,14 @@ export const changeImage = (image: ImageObj, type: string) => {
     case "resize":
       return resizeImage(image);
   }
+};
+
+export const handleImageChange = async (image: ImageObj, type: string) => {
+  const typeLower = type.toLowerCase();
+  changeImage(image, typeLower)
+    ?.then((resolve) => {
+      // Find way to pass set function to edit screen.
+      setImage(resolve);
+    })
+    .catch((error) => console.log(error));
 };

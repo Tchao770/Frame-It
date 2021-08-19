@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   uploadContainer: {
     height: 60,
     width: 140,
-    borderRadius: 50,
+    //borderRadius: 50,
     backgroundColor: "dodgerblue",
     alignItems: "center",
     justifyContent: "center",
