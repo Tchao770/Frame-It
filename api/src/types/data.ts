@@ -7,4 +7,9 @@ interface RequestHandler {
   next?: NextFunction;
 }
 
-export { RequestHandler };
+interface ImageModel {
+  uri: string;
+  title: string;
+}
+
+export { RequestHandler, ImageModel };

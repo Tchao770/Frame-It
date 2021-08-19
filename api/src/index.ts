@@ -1,4 +1,5 @@
 import express, { Request, Response, Application } from "express";
+import { ImageModel } from "./types/data";
 const app: Application = express();
 const fs = require("fs");
 const frame = require("./frameImage");
@@ -10,7 +11,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json({ limit: "25mb" }));
 
 // Post Request for uploading image
-app.post("/upload", (req: Request, res: Response): void => {
+app.post("/upload", (req: Request<{}, {}, ImageModel>, res: Response): void => {
   console.log(req.body.uri);
   //if (req.body.uri) {
   fs.writeFile(

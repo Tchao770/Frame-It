@@ -4,30 +4,32 @@ import { StyleSheet, Text, View } from "react-native";
 import BottomNav from "./src/navigation/BottomNav";
 import EditScreen from "./src/screens/EditScreen";
 import { ImageObj, ImageProp } from "./src/types/data";
-import {
-  ImageProvider,
-  useGlobalImageContext,
-} from "./src/context/ImageContext";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import HomeScreen from "./src/screens/HomeScreen";
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
-  // Explore Context API for handling image state
-  const [image, setImage] = useState<ImageObj>({
-    uri: "",
-    width: 0,
-    height: 0,
-    base64: "",
-  });
-
   return (
-    <ImageProvider>
-      <View style={styles.container}>
-        <EditScreen image={image} setImage={setImage} />
-        <BottomNav image={image} setImage={setImage} />
-        <StatusBar style="auto" />
-      </View>
-    </ImageProvider>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{ title: "Home" }}
+        />
+        <Stack.Screen
+          name="Edit"
+          component={EditScreen}
+          options={{ title: "Edit" }}
+        />
+      </Stack.Navigator>
+      <StatusBar style="auto" />
+    </NavigationContainer>
   );
 }
+//<EditScreen image={image} setImage={setImage} />
 
 const styles = StyleSheet.create({
   container: {

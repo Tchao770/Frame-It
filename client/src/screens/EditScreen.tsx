@@ -14,57 +14,24 @@ import { changeImage } from "../logic/changeImage";
 const MAX_WIDTH = Dimensions.get("window").width;
 const MAX_HEIGHT = Dimensions.get("window").height;
 
-const EditScreen = ({ image, setImage }: ImageProp) => {
+const EditScreen = ({ navigation, route }: any) => {
+  const { image } = route.params;
   const handleImageChange = async (type: string) => {
     changeImage(image, type)
       ?.then((resolve) => {
+        // Find way to pass set function to edit screen.
         setImage(resolve);
       })
       .catch((error) => console.log(error));
   };
-
-  const handleUpload = () => {
-    /*
-        Fetch URL will depend on how you are testing the device.
-        If you are using an emulator/web browser, http://localhost:8080/upload will do
-        Otherwise, if you are using a physical device, you need to use your computer's IPv4 address
-    */
-    //const ip = "172.28.56.235";
-    const ip = "localhost";
-
-    // Handle cases of changed images.
-    let resultURI = image.uri.includes("data:image/jpeg;base64,")
-      ? image.uri.replace("data:image/jpeg;base64,", "")
-      : image.uri.replace("data:image/png;base64,", "");
-
-    fetch(`http://${ip}:8081/upload`, {
-      mode: "no-cors",
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        title: "example",
-        uri: resultURI,
-      }),
-    })
-      .then((response) => {
-        if (response.ok) {
-          console.log(response);
-        }
-        throw new Error("Something went wrong.");
-      })
-      .catch((error) => {
-        Alert.alert("upload failed");
-        console.error(error);
-      });
+  const handleSave = () => {
+    navigation.navigate("Home", {});
   };
 
   return (
     <SafeAreaView style={styles.editContainer}>
       <View style={styles.publishNav}>
-        <Button title="Save" onPress={handleUpload} />
+        <Button title="Save" onPress={handleSave} />
       </View>
       <View style={styles.imageContainer}>
         {image && (
@@ -100,10 +67,11 @@ const styles = StyleSheet.create({
     flex: 5,
   },
   editOptions: {
-    flex: 1,
+    height: 70,
     backgroundColor: "pink",
     flexDirection: "row",
     justifyContent: "space-around",
+    alignItems: "center",
   },
   buttonEdit: {
     justifyContent: "center",

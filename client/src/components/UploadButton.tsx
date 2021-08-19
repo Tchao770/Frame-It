@@ -7,25 +7,28 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
-import * as ImagePicker from "expo-image-picker";
+import {
+  requestMediaLibraryPermissionsAsync,
+  launchImageLibraryAsync,
+  MediaTypeOptions,
+} from "expo-image-picker";
 import { ImageObj, ImageProp } from "../types/data";
 
-const UploadButton = ({ setImage }: ImageProp) => {
+const UploadButton = ({ setImage, navigation }: any) => {
   useEffect(() => {
     async () => {
       if (Platform.OS !== "web") {
-        const { status } =
-          await ImagePicker.requestMediaLibraryPermissionsAsync();
+        const { status } = await requestMediaLibraryPermissionsAsync();
         if (status !== "granted") {
-          alert("Sorry we need camera roll permissions!");
+          alert("Media Library Permission Denied");
         }
       }
     };
   }, []);
 
   const pickImage = async () => {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+    const result = await launchImageLibraryAsync({
+      mediaTypes: MediaTypeOptions.Images,
       /*
       allowsEditing: true,
         - iOS: Only Resizing, no cropping
@@ -34,7 +37,6 @@ const UploadButton = ({ setImage }: ImageProp) => {
       quality: 1,
       base64: true,
     });
-    console.log(result);
     if (!result.cancelled) {
       let resultObj: ImageObj = {
         uri: result.uri,
@@ -48,21 +50,22 @@ const UploadButton = ({ setImage }: ImageProp) => {
 
   return (
     <TouchableOpacity onPress={pickImage} style={styles.uploadContainer}>
-      <Text style={styles.uploadText}>Upload</Text>
+      <Text style={styles.uploadText}>Choose a Photo</Text>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   uploadContainer: {
-    height: 70,
-    width: 70,
+    height: 60,
+    width: 140,
     borderRadius: 50,
     backgroundColor: "dodgerblue",
     alignItems: "center",
     justifyContent: "center",
   },
   uploadText: {
+    color: "white",
     paddingBottom: 4,
   },
 });

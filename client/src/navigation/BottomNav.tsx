@@ -1,12 +1,12 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { Button, StyleSheet, View } from "react-native";
 import UploadButton from "../components/UploadButton";
 import { ImageProp } from "../types/data";
 
 const BottomNav = ({ image, setImage }: ImageProp) => {
   return (
     <View style={styles.navContainer}>
-      <UploadButton image={image} setImage={setImage} />
+      <Button title="Home" onPress={() => console.log("Home")} />
     </View>
   );
 };
