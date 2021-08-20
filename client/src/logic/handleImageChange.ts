@@ -1,5 +1,5 @@
 import { manipulateAsync } from "expo-image-manipulator";
-import { ImageObj, OptionParams } from "../types/data";
+import { ImageChangeProp, ImageObj, OptionParams } from "../types/data";
 
 const optionParams: OptionParams = [
   { rotate: 90 },
@@ -58,7 +58,11 @@ const changeImage = (image: ImageObj, type: string) => {
   }
 };
 
-export const handleImageChange = async (image: ImageObj, type: string) => {
+export const handleImageChange = async ({
+  image,
+  setImage,
+  type,
+}: ImageChangeProp) => {
   const typeLower = type.toLowerCase();
   changeImage(image, typeLower)
     ?.then((resolve) => {

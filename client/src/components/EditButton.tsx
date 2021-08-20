@@ -1,20 +1,15 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import { handleImageChange } from "../logic/handleImageChange";
-import { ImageObj } from "../types/data";
+import { ImageChangeProp, ImageObj } from "../types/data";
 
-interface EditButtonProps {
-  image: ImageObj;
-  title: string;
-}
-
-export const EditButton = ({ image, title }: EditButtonProps) => {
+export const EditButton = ({ image, setImage, type }: ImageChangeProp) => {
   return (
     <TouchableOpacity
-      onPress={() => handleImageChange(image, title)}
+      onPress={() => handleImageChange({ image, setImage, type })}
       style={styles.editButton}
     >
-      <Text style={styles.text}>{title}</Text>
+      <Text style={styles.text}>{type}</Text>
     </TouchableOpacity>
   );
 };

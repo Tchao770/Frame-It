@@ -1,6 +1,5 @@
-import React, { useRef, useEffect } from "react";
+import React, { useState } from "react";
 import {
-  Alert,
   Button,
   Dimensions,
   Image,
@@ -8,17 +7,23 @@ import {
   StyleSheet,
   View,
 } from "react-native";
-import { ImageProp } from "../types/data";
-import { handleImageChange } from "../logic/handleImageChange";
+import { ImageObj } from "../types/data";
 import { EditButton } from "../components/EditButton";
 
 const MAX_WIDTH = Dimensions.get("window").width;
 const MAX_HEIGHT = Dimensions.get("window").height;
 
-const EditScreen = ({ navigation, route }: any) => {
-  const { image } = route.params;
+const EditScreen = ({ route, navigation }: any) => {
+  const [image, setImage] = useState<ImageObj>(route.params.image);
   const handleSave = () => {
-    navigation.navigate("Home", {});
+    navigation.navigate("Home", {
+      adjustedImage: {
+        uri: image.uri,
+        height: image.height,
+        width: image.width,
+        base64: image.base64,
+      },
+    });
   };
 
   return (
@@ -40,9 +45,9 @@ const EditScreen = ({ navigation, route }: any) => {
         )}
       </View>
       <View style={styles.editOptions}>
-        <EditButton image={image} title={"Rotate"} />
-        <EditButton image={image} title={"Resize"} />
-        <EditButton image={image} title={"Crop"} />
+        <EditButton image={image} setImage={setImage} type={"Rotate"} />
+        <EditButton image={image} setImage={setImage} type={"Resize"} />
+        <EditButton image={image} setImage={setImage} type={"Crop"} />
       </View>
     </SafeAreaView>
   );

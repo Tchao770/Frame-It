@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { Text, View } from "react-native";
 import UploadButton from "../components/UploadButton";
 import { handleUpload } from "../logic/handleUpload";
 import { ImageObj } from "../types/data";
 
-export default function HomeScreen({ navigation }: any) {
+export default function HomeScreen({ route, navigation }: any) {
   // Explore Context API for handling image state
   const [image, setImage] = useState<ImageObj>({
     uri: "",
@@ -13,6 +13,13 @@ export default function HomeScreen({ navigation }: any) {
     height: 0,
     base64: "",
   });
+
+  useEffect(() => {
+    console.log(route.params);
+    navigation.addListener("focus", () => {
+      setImage(route.params?.adjustedImage);
+    });
+  }, [route.params?.adjustedImage]);
 
   return (
     <View style={styles.screenContainer}>
@@ -23,7 +30,7 @@ export default function HomeScreen({ navigation }: any) {
         <Text style={styles.title}>Frame It</Text>
       </TouchableOpacity>
       <Image
-        source={image.uri ? { uri: image.uri } : { uri: "placeholder.png" }}
+        source={image?.uri ? { uri: image.uri } : { uri: "placeholder.png" }}
         style={styles.previewImg}
       />
       <View style={styles.buttonOptions}>

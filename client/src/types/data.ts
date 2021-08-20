@@ -12,6 +12,10 @@ interface ImageProp {
   setImage: Dispatch<SetStateAction<ImageObj>>;
 }
 
+interface ImageChangeProp extends ImageProp {
+  type: string;
+}
+
 type EditOptions = "rotate" | "crop" | "resize";
 
 interface OptionParams {
@@ -32,4 +36,11 @@ interface OptionParams {
 
 type Dispatcher<S> = Dispatch<SetStateAction<S>>;
 
-export { ImageObj, ImageProp, Dispatcher, EditOptions, OptionParams };
+export {
+  ImageObj,
+  ImageProp,
+  Dispatcher,
+  EditOptions,
+  OptionParams,
+  ImageChangeProp,
+};
