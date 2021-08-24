@@ -15,7 +15,6 @@ export default function HomeScreen({ route, navigation }: any) {
   });
 
   useEffect(() => {
-    console.log(route.params);
     navigation.addListener("focus", () => {
       setImage(route.params?.adjustedImage);
     });

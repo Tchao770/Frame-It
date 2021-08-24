@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import { manipulateAsync } from "expo-image-manipulator";
 import { ImageChangeProp, ImageObj, OptionParams } from "../types/data";
 
@@ -51,8 +52,6 @@ const changeImage = (image: ImageObj, type: string) => {
   switch (type) {
     case "rotate":
       return rotateImage(image);
-    case "crop":
-      return cropImage(image);
     case "resize":
       return resizeImage(image);
   }

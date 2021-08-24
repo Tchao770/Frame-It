@@ -34,6 +34,7 @@ export const ImageCropper = (image: ImageObj) => {
       },
     })
   ).current;
+
   return (
     <View style={styles.cropContainer}>
       <Animated.View
@@ -59,8 +60,8 @@ export const ImageCropper = (image: ImageObj) => {
           source={{ uri: image.uri }}
           style={{
             resizeMode: "contain",
-            maxWidth: MAX_WIDTH,
-            maxHeight: MAX_HEIGHT,
+            width: MAX_WIDTH,
+            height: MAX_HEIGHT,
             flex: 1,
           }}
         />
@@ -71,9 +72,10 @@ export const ImageCropper = (image: ImageObj) => {
 
 const styles = StyleSheet.create({
   cropContainer: {
-    height: "100%",
-    width: "100%",
-    backgroundColor: "rgba(0, 0, 255, 0.5)",
+    height: 500,
+    width: 500,
+    //backgroundColor: "rgba(0, 0, 255, 0.5)",
+    flex: 1,
   },
   leftCrop: {
     backgroundColor: "black",

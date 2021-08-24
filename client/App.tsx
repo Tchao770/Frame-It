@@ -7,6 +7,7 @@ import { ImageObj, ImageProp } from "./src/types/data";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./src/screens/HomeScreen";
+import CropperScreen from "./src/screens/CropperScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -23,6 +24,11 @@ export default function App() {
           name="Edit"
           component={EditScreen}
           options={{ title: "Edit" }}
+        />
+        <Stack.Screen
+          name="Crop"
+          component={CropperScreen}
+          options={{ title: "Cropper" }}
         />
       </Stack.Navigator>
       <StatusBar style="auto" />

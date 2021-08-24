@@ -1,19 +1,24 @@
 import express, { Request, Response, Application } from "express";
 import { ImageModel } from "./types/data";
 const app: Application = express();
+const bodyparser = require("body-parser");
 const fs = require("fs");
 const frame = require("./frameImage");
 const path = require("path");
 
 const PORT = 8081;
 
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json({ limit: "25mb" }));
+app.use(bodyparser.urlencoded({ extended: false }));
+app.use(bodyparser.json({ limit: "25mb" }));
 
 // Post Request for uploading image
-app.post("/upload", (req: Request<{}, {}, ImageModel>, res: Response): void => {
-  console.log(req.body.uri);
+app.post("/upload", (req: Request, res: Response): void => {
+  const defunt = req.body as ImageModel;
+  //console.log(res);
+  //console.log("**********************************");
+  console.log(defunt);
   //if (req.body.uri) {
+  /*
   fs.writeFile(
     __dirname + `/../images/uploads/${req.body.title}.png`,
     req.body.uri,
@@ -26,7 +31,7 @@ app.post("/upload", (req: Request<{}, {}, ImageModel>, res: Response): void => {
       }
     }
   );
-  /*
+  ///*
   } else {
     let attr = Object.keys(req.body).map((key, value) => {
       return key + `: ${value}\n`;

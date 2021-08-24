@@ -5,25 +5,35 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var app = express_1.default();
+var bodyparser = require("body-parser");
 var fs = require("fs");
 var frame = require("./frameImage");
 var path = require("path");
 var PORT = 8081;
-app.use(express_1.default.urlencoded({ extended: false }));
-app.use(express_1.default.json({ limit: "25mb" }));
+app.use(bodyparser.urlencoded({ extended: false }));
+app.use(bodyparser.json({ limit: "25mb" }));
 // Post Request for uploading image
 app.post("/upload", function (req, res) {
-    console.log(req.body);
+    var defunt = req.body;
+    //console.log(res);
+    //console.log("**********************************");
+    console.log(defunt);
+    console.log(res.json);
     //if (req.body.uri) {
-    fs.writeFile(__dirname + ("/../images/uploads/" + req.body.title + ".png"), req.body.uri, "base64", function (err) {
-        if (err)
-            throw err;
-        else {
-            console.log("Image saved to local storage");
-            frame.frameImage({ image: req.body.title, frame: "gold-frame" });
-        }
-    });
     /*
+    fs.writeFile(
+      __dirname + `/../images/uploads/${req.body.title}.png`,
+      req.body.uri,
+      `base64`,
+      (err: string) => {
+        if (err) throw err;
+        else {
+          console.log("Image saved to local storage");
+          frame.frameImage({ image: req.body.title, frame: "gold-frame" });
+        }
+      }
+    );
+    ///*
     } else {
       let attr = Object.keys(req.body).map((key, value) => {
         return key + `: ${value}\n`;

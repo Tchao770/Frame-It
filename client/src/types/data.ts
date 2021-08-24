@@ -16,6 +16,16 @@ interface ImageChangeProp extends ImageProp {
   type: string;
 }
 
+interface CropProp {
+  image: ImageProp;
+}
+
+interface DeviceSizeProp {
+  height: number;
+  width: number;
+  setDimensions?: Dispatch<SetStateAction<DeviceSizeProp>>;
+}
+
 type EditOptions = "rotate" | "crop" | "resize";
 
 interface OptionParams {
@@ -43,4 +53,6 @@ export {
   EditOptions,
   OptionParams,
   ImageChangeProp,
+  CropProp,
+  DeviceSizeProp,
 };
