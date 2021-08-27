@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Button, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { Image, StyleSheet, TouchableOpacity } from "react-native";
 import { Text, View } from "react-native";
-import UploadButton from "../components/UploadButton";
+import ChooseButton from "../components/ChooseButton";
 import { handleUpload } from "../logic/handleUpload";
 import { ImageObj } from "../types/data";
 
@@ -43,7 +43,7 @@ export default function HomeScreen({ route, navigation }: any) {
         >
           <Text style={styles.editText}>Edit</Text>
         </TouchableOpacity>
-        <UploadButton
+        <ChooseButton
           image={image}
           setImage={setImage}
           navigation={navigation}

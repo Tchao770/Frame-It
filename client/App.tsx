@@ -1,9 +1,7 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useContext, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import BottomNav from "./src/navigation/BottomNav";
+import React from "react";
+import { StyleSheet } from "react-native";
 import EditScreen from "./src/screens/EditScreen";
-import { ImageObj, ImageProp } from "./src/types/data";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./src/screens/HomeScreen";

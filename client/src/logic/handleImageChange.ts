@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import { manipulateAsync } from "expo-image-manipulator";
+import { manipulateAsync, FlipType } from "expo-image-manipulator";
 import { ImageChangeProp, ImageObj, OptionParams } from "../types/data";
 
 const optionParams: OptionParams = [
@@ -27,9 +27,9 @@ const rotateImage = async (image: ImageObj) => {
   return adjustedImage;
 };
 
-const resizeImage = async (image: ImageObj) => {
+const flipImage = async (image: ImageObj) => {
   const adjustedImage = await manipulateAsync(image.uri, [
-    { resize: { width: image.width, height: image.height } },
+    { flip: FlipType.Horizontal },
   ]);
   return adjustedImage;
 };
@@ -52,8 +52,8 @@ const changeImage = (image: ImageObj, type: string) => {
   switch (type) {
     case "rotate":
       return rotateImage(image);
-    case "resize":
-      return resizeImage(image);
+    case "flip":
+      return flipImage(image);
   }
 };
 
@@ -66,7 +66,7 @@ export const handleImageChange = async ({
   changeImage(image, typeLower)
     ?.then((resolve) => {
       // Find way to pass set function to edit screen.
-      setImage(resolve);
+      setImage ? setImage(resolve) : console.log("setImage function not found");
     })
     .catch((error) => console.log(error));
 };

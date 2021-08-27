@@ -9,7 +9,7 @@ interface ImageObj {
 
 interface ImageProp {
   image: ImageObj;
-  setImage: Dispatch<SetStateAction<ImageObj>>;
+  setImage?: Dispatch<SetStateAction<ImageObj>>;
 }
 
 interface ImageChangeProp extends ImageProp {

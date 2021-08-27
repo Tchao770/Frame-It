@@ -5,42 +5,34 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var app = express_1.default();
-var bodyparser = require("body-parser");
 var fs = require("fs");
 var frame = require("./frameImage");
 var path = require("path");
 var PORT = 8081;
-app.use(bodyparser.urlencoded({ extended: false }));
-app.use(bodyparser.json({ limit: "25mb" }));
+app.use(express_1.default.urlencoded({ extended: true }));
+app.use(express_1.default.json({
+    limit: "25mb",
+    type: ["application/json", "text/plain"],
+}));
 // Post Request for uploading image
 app.post("/upload", function (req, res) {
-    var defunt = req.body;
-    //console.log(res);
-    //console.log("**********************************");
-    console.log(defunt);
-    console.log(res.json);
-    //if (req.body.uri) {
-    /*
-    fs.writeFile(
-      __dirname + `/../images/uploads/${req.body.title}.png`,
-      req.body.uri,
-      `base64`,
-      (err: string) => {
-        if (err) throw err;
-        else {
-          console.log("Image saved to local storage");
-          frame.frameImage({ image: req.body.title, frame: "gold-frame" });
-        }
-      }
-    );
-    ///*
-    } else {
-      let attr = Object.keys(req.body).map((key, value) => {
-        return key + `: ${value}\n`;
-      });
-      throw new Error(`uri field expected, received: \n${attr}`);
+    var imageReq = req.body;
+    if (imageReq.uri) {
+        fs.writeFile(__dirname + ("/../images/uploads/" + imageReq.title + ".png"), imageReq.uri, "base64", function (err) {
+            if (err)
+                throw err;
+            else {
+                console.log("Image saved to local storage");
+                frame.frameImage({ image: imageReq.title, frame: "gold-frame" });
+            }
+        });
     }
-    */
+    else {
+        var attr = Object.keys(imageReq).map(function (key, value) {
+            return key + (": " + value + "\n");
+        });
+        throw new Error("uri field expected, received: \n" + attr);
+    }
     res.status(200).json({
         message: "success",
     });

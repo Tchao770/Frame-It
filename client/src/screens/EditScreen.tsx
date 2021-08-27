@@ -5,6 +5,8 @@ import {
   Image,
   SafeAreaView,
   StyleSheet,
+  Text,
+  TouchableOpacity,
   View,
 } from "react-native";
 import { ImageObj } from "../types/data";
@@ -28,8 +30,10 @@ const EditScreen = ({ route, navigation }: any) => {
 
   return (
     <SafeAreaView style={styles.editContainer}>
-      <View style={styles.publishNav}>
-        <Button title="Save" onPress={handleSave} />
+      <View style={styles.saveContainer}>
+        <TouchableOpacity onPress={handleSave} style={styles.saveButton}>
+          <Text style={styles.title}>Save</Text>
+        </TouchableOpacity>
       </View>
       <View style={styles.imageContainer}>
         {image && (
@@ -46,7 +50,7 @@ const EditScreen = ({ route, navigation }: any) => {
       </View>
       <View style={styles.editOptions}>
         <EditButton image={image} setImage={setImage} type={"Rotate"} />
-        <EditButton image={image} setImage={setImage} type={"Resize"} />
+        <EditButton image={image} setImage={setImage} type={"Flip"} />
         <EditButton image={image} setImage={setImage} type={"Crop"} />
       </View>
     </SafeAreaView>
@@ -60,13 +64,29 @@ const styles = StyleSheet.create({
     backgroundColor: "gray",
     flexDirection: "column",
   },
-  publishNav: { flex: 1, backgroundColor: "pink" },
+  saveContainer: {
+    backgroundColor: "lightgray",
+    justifyContent: "center",
+    alignItems: "center",
+    flex: 1,
+  },
+  title: {
+    fontSize: 35,
+    color: "white",
+  },
+  saveButton: {
+    backgroundColor: "dodgerblue",
+    padding: 10,
+    width: 200,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   imageContainer: {
     flex: 5,
   },
   editOptions: {
     height: 100,
-    backgroundColor: "pink",
+    backgroundColor: "lightgray",
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",

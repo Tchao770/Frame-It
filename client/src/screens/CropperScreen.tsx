@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { SafeAreaView, Dimensions, Image, Text, View } from "react-native";
-import { ImageCropper } from "../components/ImageCrop";
+import { Cropper } from "../components/Cropper";
 
 const MAX_WIDTH = Dimensions.get("window").width;
 const MAX_HEIGHT = Dimensions.get("window").height;
@@ -10,13 +10,13 @@ const CropperScreen = ({ route, navigation }: any) => {
   const image = route.params.image;
   return (
     <SafeAreaView style={styles.cropContainer}>
-      <Text>Crop the Image</Text>
+      <Text>Adjust the crop tabs</Text>
       <View style={styles.imageContainer}>
         {/* <Image
           source={image.uri ? { uri: image.uri } : { uri: "placeholder.png" }}
           style={styles.image}
         /> */}
-        <ImageCropper image={image} />
+        <Cropper image={image} />
       </View>
       <TouchableOpacity
         onPress={() =>

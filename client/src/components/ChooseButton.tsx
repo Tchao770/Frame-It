@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import {
   Image,
   Platform,
@@ -12,9 +12,9 @@ import {
   launchImageLibraryAsync,
   MediaTypeOptions,
 } from "expo-image-picker";
-import { ImageObj, ImageProp } from "../types/data";
+import { ImageObj } from "../types/data";
 
-const UploadButton = ({ setImage, navigation }: any) => {
+const ChooseButton = ({ setImage, navigation }: any) => {
   useEffect(() => {
     async () => {
       if (Platform.OS !== "web") {
@@ -30,10 +30,10 @@ const UploadButton = ({ setImage, navigation }: any) => {
     const result = await launchImageLibraryAsync({
       mediaTypes: MediaTypeOptions.Images,
       /*
-      allowsEditing: true,
-        - iOS: Only Resizing, no cropping
-        - Android: Everything.
+      - iOS: Only Resizing, no cropping
+      - Android: Everything.
       */
+      allowsEditing: true,
       quality: 1,
       base64: true,
     });
@@ -70,4 +70,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default UploadButton;
+export default ChooseButton;

@@ -1,6 +1,9 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import CropSvg from "../assets/svgr/cropSvg";
+import FlipSvg from "../assets/svgr/flipSvg";
+import RotateSvg from "../assets/svgr/rotateSvg";
 import { handleImageChange } from "../logic/handleImageChange";
 import { ImageChangeProp, ImageObj } from "../types/data";
 
@@ -11,6 +14,17 @@ export const EditButton = ({ image, setImage, type }: ImageChangeProp) => {
       image: image,
     });
   };
+
+  const handleSVG = (type: string) => {
+    switch (type) {
+      case "Crop":
+        return <CropSvg />;
+      case "Rotate":
+        return <RotateSvg />;
+      case "Flip":
+        return <FlipSvg />;
+    }
+  };
   return (
     <TouchableOpacity
       onPress={() =>
@@ -20,7 +34,7 @@ export const EditButton = ({ image, setImage, type }: ImageChangeProp) => {
       }
       style={styles.editButton}
     >
-      <Text style={styles.text}>{type}</Text>
+      {handleSVG(type)}
     </TouchableOpacity>
   );
 };
